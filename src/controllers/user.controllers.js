@@ -15,16 +15,23 @@ export const allUsers = async (req, res) => {
 };
 export const insertUser = async (req, res) => {
   try {
-    console.log(req.body)
-     const {name, email, password} = req.body;
-     const newUser = await User.create({
-      name:name,
-      email:email,
-      password:password
-     });
-   res.status(201).json(newUser.rows)
+    const { name, email, password } = req.body;
+    
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(409).json({ error: 'El correo electrónico ya está en uso' });
+    }
+    
+    const newUser = await User.create({
+      name,
+      email,
+      password
+    });
+    
+    res.status(201).json(newUser.rows);
   } catch (error) {
     console.error(error.message);
+    res.status(500).json({ error: 'Ha ocurrido un error' });
   }
 };
 
