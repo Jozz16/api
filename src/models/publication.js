@@ -1,40 +1,34 @@
-import {DataTypes, Model } from 'sequelize';
-import sequelize from "../services/connection-db.js";
-import User from './user.js';
+import { Sequelize } from "sequelize";
+import {User} from './user.js';
+import db from "../connection-db.js";
 
-class Publicacion extends Model{
+export const Publicacion = db.define(
+    "Publicacion",{
+        nombreProducto: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        Titulo: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        url: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        descripcion: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        id: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true,
+        }
+    
+    })
 
-}
-Publicacion.init({
 
-    nombreProducto: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    Titulo: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    url: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    descripcion: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    }},
-    {
-        sequelize,
-        modelName: "Publicacion",
-        tableName: "publicaciones",
-        underscored: true,
-    }
-)
 
 
 User.hasMany(Publicacion);

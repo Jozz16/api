@@ -1,12 +1,21 @@
 import { Router } from "express";
-import { allUsers, insertUser, loginUser } from "../controllers/user.controllers.js";
+import { allUsers, insertUser, loginUser,createPublicacion } from "../controllers/user.controllers.js";
 const router = Router();
+import sequelize from '../connection-db.js';
+// import { Sequelize} from 'sequelize';
+
+(async () => {
+  await sequelize.sync();
+  console.log('Tabla Publicacion sincronizada');
+})();
 
 router.post("/register/v1", insertUser);
 
 router.get("/", allUsers);
 
 router.post("/login/v1", loginUser);
+
+router.post("/publicacion/v1", createPublicacion);
 
 
 
