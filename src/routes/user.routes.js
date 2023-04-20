@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allUsers, insertUser, loginUser,createPublicacion } from "../controllers/user.controllers.js";
+import { allUsers, insertUser, loginUser,createPublicacion, allPublicaciones, allPublicacionesConAutor } from "../controllers/user.controllers.js";
 const router = Router();
 import sequelize from '../connection-db.js';
 // import { Sequelize} from 'sequelize';
@@ -10,6 +10,10 @@ import sequelize from '../connection-db.js';
 })();
 
 router.post("/register/v1", insertUser);
+
+router.post("/todas-las-publicaciones", allPublicacionesConAutor);
+
+router.get("/todas-las-publicaciones", allPublicaciones);
 
 router.get("/", allUsers);
 

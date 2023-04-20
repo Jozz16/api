@@ -13,7 +13,7 @@ export const Publicacion = db.define(
             allowNull: false
         },
         url: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             allowNull: false
         },
         descripcion: {
