@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allUsers, insertUser, loginUser,createPublicacion, allPublicaciones, allPublicacionesConAutor, obtenerUsuarioPorId } from "../controllers/user.controllers.js";
+import { allUsers, insertUser, loginUser,createPublicacion, allPublicaciones, allPublicacionesConAutor, obtenerUsuarioPorId, actualizarUsuarioBuscado } from "../controllers/user.controllers.js";
 const router = Router();
 import sequelize from '../connection-db.js';
 // import { Sequelize} from 'sequelize';
@@ -23,18 +23,8 @@ router.post("/login/v1", loginUser);
 
 router.post("/publicacion/v1", createPublicacion);
 
+router.put("/actualizar-usuario/:id", actualizarUsuarioBuscado);
 
-
-
-
-router.get("/:email", (req, res) => {
-  // lógica para manejar la ruta "/:email"
-  res.send("hola get email");
-});
-router.put("/:email", (req, res) => {
-  // lógica para manejar la ruta "/:email"
-  res.send("hola modificando user");
-});
 
 router.delete("/:email", (req, res) => {
   // lógica para manejar la ruta "/:email"

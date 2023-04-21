@@ -124,7 +124,6 @@ export const allPublicacionesConAutor = async (req, res) => {
 export const obtenerUsuarioPorId = async (req, res) => {
   try {
     const usuarioId = req.params.id;
-    console.log(usuarioId,"--------------")
     const usuario = await User.findOne({ where: { id: usuarioId }});
     const roles = [
       {
@@ -138,6 +137,21 @@ export const obtenerUsuarioPorId = async (req, res) => {
     ]
     
     res.status(200).json({ usuario, roles });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Ha ocurrido un error' });
+  }
+};
+export const actualizarUsuarioBuscado = async (req, res) => {
+  try {
+    const usuarioId = req.params.id;
+    console.log(usuarioId,"--------------------------------------")
+    const { name, email, tipoRol } = req.body;
+
+    const usuario = await User.findOne({ where: { id: usuarioId }});
+    await usuario.update({ name, email, tipoRol });
+
+    res.status(200).json({ message: 'Usuario actualizado exitosamente' });
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: 'Ha ocurrido un error' });
