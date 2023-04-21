@@ -2,6 +2,7 @@
 import { Sequelize } from "sequelize";
 // import { config } from "../config-db.json" assert{type: "json"};
 import db from "../connection-db.js";
+import { text } from "stream/consumers";
 
 
 

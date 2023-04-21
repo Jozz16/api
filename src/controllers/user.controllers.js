@@ -9,7 +9,7 @@ export const allUsers = async (req, res) => {
      const users = await User.findAll();
     
 
-   res.status(200).json(users.rows)
+   res.status(200).json(users)
   } catch (error) {
     console.error(error.message);
   }
@@ -121,6 +121,27 @@ export const allPublicacionesConAutor = async (req, res) => {
   }
 };
 
-
+export const obtenerUsuarioPorId = async (req, res) => {
+  try {
+    const usuarioId = req.params.id;
+    console.log(usuarioId,"--------------")
+    const usuario = await User.findOne({ where: { id: usuarioId }});
+    const roles = [
+      {
+        rol: "admin",
+        text: "admin"
+      },
+      {
+        rol: "user",
+        text: "user"
+      }
+    ]
+    
+    res.status(200).json({ usuario, roles });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Ha ocurrido un error' });
+  }
+};
 
 
