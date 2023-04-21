@@ -23,12 +23,9 @@ router.post("/login/v1", loginUser);
 
 router.post("/publicacion/v1", createPublicacion);
 
-router.put("/actualizar-usuario/:id", actualizarUsuarioBuscado);
+router.put("/actualizar-usuario-buscado/:id", actualizarUsuarioBuscado);
 
 
-router.delete("/:email", (req, res) => {
-  // lógica para manejar la ruta "/:email"
-  res.send("hola eliminando user");
-});
+
 
 export default router;
