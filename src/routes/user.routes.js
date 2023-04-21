@@ -11,7 +11,7 @@ import sequelize from '../connection-db.js';
 
 router.post("/register/v1", insertUser);
 
-router.post("/todas-las-publicaciones", allPublicacionesConAutor);
+router.get("/todas-las-publicaciones/autor", allPublicacionesConAutor);
 
 router.get("/todas-las-publicaciones", allPublicaciones);
 

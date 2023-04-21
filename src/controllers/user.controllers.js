@@ -112,15 +112,8 @@ export const allPublicaciones = async (req, res) => {
 export const allPublicacionesConAutor = async (req, res) => {
   try {
     const publicaciones = await Publicacion.findAll({
-      attributes: ['id', 'content'],
-      include: [
-        {
-          model: User,
-          attributes: ['name']
-        }
-      ]
+            include: User
     });
-
     res.status(200).json(publicaciones);
   } catch (error) {
     console.error(error.message);
