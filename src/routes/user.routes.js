@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { allUsers, insertUser, loginUser,createPublicacion, allPublicaciones, allPublicacionesConAutor, obtenerUsuarioPorId, actualizarUsuarioBuscado } from "../controllers/user.controllers.js";
+import { allUsers, insertUser, loginUser,createPublicacion, allPublicaciones, allPublicacionesConAutor, obtenerUsuarioPorId, actualizarUsuarioBuscado, eliminarUsuario, eliminarPublicacion } from "../controllers/user.controllers.js";
 const router = Router();
 import sequelize from '../connection-db.js';
 // import { Sequelize} from 'sequelize';
@@ -25,6 +25,8 @@ router.post("/publicacion/v1", createPublicacion);
 
 router.put("/actualizar-usuario-buscado/:id", actualizarUsuarioBuscado);
 
+router.delete('/eliminar-usuario/:id', eliminarUsuario);
+router.delete('/eliminar-publicacion/:id', eliminarPublicacion);
 
 
 

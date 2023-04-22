@@ -157,5 +157,31 @@ export const actualizarUsuarioBuscado = async (req, res) => {
     res.status(500).json({ error: 'Ha ocurrido un error' });
   }
 };
+export const eliminarUsuario = async (req, res) => {
+  try {
+    const usuarioId = req.params.id;
+    const usuario = await User.findOne({ where: { id: usuarioId }});
+    await usuario.destroy();
+
+    res.status(200).json({ message: 'Usuario eliminado exitosamente' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Ha ocurrido un error' });
+  }
+};
+
+export const eliminarPublicacion = async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post = await Publicacion.findOne({ where: { id: postId } });
+    console.log(post,"-------------------")
+    await post.destroy();
+
+    res.status(200).json({ message: 'Publicación eliminada exitosamente' });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Ha ocurrido un error' });
+  }
+};
 
 
