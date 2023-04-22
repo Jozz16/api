@@ -69,11 +69,9 @@ export const loginUser = async (req, res) => {
 export const createPublicacion = async (req, res) => {
   try {
     // Obtener los datos de la publicación desde el cuerpo de la solicitud
-    const { nombreProducto, Titulo, url, descripcion } = req.body;
-    const {token} = req.headers;
-    
+    const { nombreProducto, Titulo, upload, descripcion } = req.body;
+    const {token} = req.headers;    
       const decodedToken = jwt.verify(token, 'cj19775');
-      console.log('Token decodificado:', decodedToken);
     // Obtener el usuario actual a través del ID almacenado en la sesión
     const userId = decodedToken.id;
     const user = await User.findByPk(userId);
@@ -82,11 +80,10 @@ export const createPublicacion = async (req, res) => {
       return res.status(401).json({ error: 'No estás autorizado para hacer publicaciones' });
     }
 
-    // Crear una nueva publicación en la base de datos y asociarla con el usuario actual
     const nuevaPublicacion = await Publicacion.create({
       nombreProducto,
       Titulo,
-      url,
+      url : upload,
       descripcion,
       UserId: user.id, // Agregar el ID de usuario a la nueva publicación
     });

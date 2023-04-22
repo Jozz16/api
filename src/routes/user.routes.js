@@ -26,6 +26,7 @@ router.post("/publicacion/v1", createPublicacion);
 router.put("/actualizar-usuario-buscado/:id", actualizarUsuarioBuscado);
 
 router.delete('/eliminar-usuario/:id', eliminarUsuario);
+
 router.delete('/eliminar-publicacion/:id', eliminarPublicacion);
 
 
