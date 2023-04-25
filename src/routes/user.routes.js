@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { allUsers, insertUser, loginUser,createPublicacion, allPublicaciones, allPublicacionesConAutor, obtenerUsuarioPorId, actualizarUsuarioBuscado, eliminarUsuario, eliminarPublicacion } from "../controllers/user.controllers.js";
+import { allUsers, insertUser, loginUser, obtenerUsuarioPorId, actualizarUsuarioBuscado, eliminarUsuario } from "../controllers/user.controllers.js";
+import {createPublicacion, allPublicaciones, allPublicacionesConAutor, eliminarPublicacion } from "../controllers/publication.js";
 const router = Router();
 import sequelize from '../connection-db.js';
 // import { Sequelize} from 'sequelize';

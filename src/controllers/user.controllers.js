@@ -2,18 +2,23 @@ import  {User}  from "../models/user.js";
 import  {Publicacion}  from "../models/publication.js";
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { Sequelize } from 'sequelize';
+
 
 
 export const allUsers = async (req, res) => {
   try {
-     const users = await User.findAll();
-    
-
-   res.status(200).json(users)
+    const users = await User.findAll();
+    const countByRol = await User.findAll({
+      attributes: ['tipoRol', [Sequelize.fn('COUNT', 'id'), 'count']],
+      group: ['tipoRol']
+    });
+    res.status(200).json({ users, countByRol });
   } catch (error) {
     console.error(error.message);
   }
 };
+
 export const insertUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -66,62 +71,6 @@ export const loginUser = async (req, res) => {
   }
 };
 
-export const createPublicacion = async (req, res) => {
-  try {
-    // Obtener los datos de la publicación desde el cuerpo de la solicitud
-    const { nombreProducto, Titulo, upload, descripcion } = req.body;
-    const {token} = req.headers;    
-      const decodedToken = jwt.verify(token, 'cj19775');
-    // Obtener el usuario actual a través del ID almacenado en la sesión
-    const userId = decodedToken.id;
-    const user = await User.findByPk(userId);
-    
-    if (!user) {
-      return res.status(401).json({ error: 'No estás autorizado para hacer publicaciones' });
-    }
-
-    const nuevaPublicacion = await Publicacion.create({
-      nombreProducto,
-      Titulo,
-      url : upload,
-      descripcion,
-      UserId: user.id, // Agregar el ID de usuario a la nueva publicación
-    });
-
-    res.status(201).json(nuevaPublicacion);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: 'Ha ocurrido un error' });
-  }
-};
-
-export const allPublicaciones = async (req, res) => {
-  try {
-    const publicaciones = await Publicacion.findAll({
-      order: [
-        ['id', 'DESC']
-      ]
-    });
-
-    res.status(200).json(publicaciones);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: 'Ha ocurrido un error' });
-  }
-};
-
-export const allPublicacionesConAutor = async (req, res) => {
-  try {
-    const publicaciones = await Publicacion.findAll({
-            include: User
-    });
-    res.status(200).json(publicaciones);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: 'Ha ocurrido un error' });
-  }
-};
-
 export const obtenerUsuarioPorId = async (req, res) => {
   try {
     const usuarioId = req.params.id;
@@ -158,6 +107,7 @@ export const actualizarUsuarioBuscado = async (req, res) => {
     res.status(500).json({ error: 'Ha ocurrido un error' });
   }
 };
+
 export const eliminarUsuario = async (req, res) => {
   try {
     const usuarioId = req.params.id;
@@ -171,18 +121,6 @@ export const eliminarUsuario = async (req, res) => {
   }
 };
 
-export const eliminarPublicacion = async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const post = await Publicacion.findOne({ where: { id: postId } });
-    console.log(post,"-------------------")
-    await post.destroy();
 
-    res.status(200).json({ message: 'Publicación eliminada exitosamente' });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: 'Ha ocurrido un error' });
-  }
-};
 
 
