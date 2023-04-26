@@ -33,12 +33,16 @@ export const createPublicacion = async (req, res) => {
     }
   };
 
-export const allPublicaciones = async (req, res) => {
+  export const allPublicaciones = async (req, res) => {
     try {
       const publicaciones = await Publicacion.findAll({
         order: [
           ['id', 'DESC']
-        ]
+        ],
+        include: {
+          model: User,
+          attributes: ['name', 'email']
+        }
       });
   
       res.status(200).json(publicaciones);
