@@ -1,8 +1,7 @@
 import  {Publicacion}  from "../models/publication.js";
 import  {User}  from "../models/user.js";
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import { Sequelize } from 'sequelize';
+
 
 
 export const createPublicacion = async (req, res) => {

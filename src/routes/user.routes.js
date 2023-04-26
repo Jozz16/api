@@ -11,23 +11,17 @@ import sequelize from '../connection-db.js';
 })();
 
 router.post("/register/v1", insertUser);
-
-router.get("/todas-las-publicaciones/autor", allPublicacionesConAutor);
-
-router.get("/todas-las-publicaciones", allPublicaciones);
-
 router.get("/usuarios", allUsers);
-
 router.get('/buscar-usuarios/:id', obtenerUsuarioPorId);
-
 router.post("/login/v1", loginUser);
-
-router.post("/publicacion/v1", createPublicacion);
-
 router.put("/actualizar-usuario-buscado/:id", actualizarUsuarioBuscado);
-
 router.delete('/eliminar-usuario/:id', eliminarUsuario);
 
+
+
+router.post("/publicacion/v1", createPublicacion);
+router.get("/todas-las-publicaciones", allPublicaciones);
+router.get("/todas-las-publicaciones/autor", allPublicacionesConAutor);
 router.delete('/eliminar-publicacion/:id', eliminarPublicacion);
 
 
