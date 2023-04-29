@@ -95,7 +95,6 @@ export const obtenerUsuarioPorId = async (req, res) => {
 export const actualizarUsuarioBuscado = async (req, res) => {
   try {
     const usuarioId = req.params.id;
-    console.log(usuarioId,"--------------------------------------")
     const { name, email, tipoRol } = req.body;
 
     const usuario = await User.findOne({ where: { id: usuarioId }});
