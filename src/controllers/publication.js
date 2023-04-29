@@ -8,25 +8,34 @@ export const createPublicacion = async (req, res) => {
     try {
       // Obtener los datos de la publicación desde el cuerpo de la solicitud
       const { nombreProducto, Titulo, upload, descripcion } = req.body;
-      const {token} = req.headers;    
-        const decodedToken = jwt.verify(token, 'cj19775');
+      const { token } = req.headers;
+      let decodedToken;
+      try {
+        decodedToken = jwt.verify(token, "cj19775");
+    } catch {
+       return res.status(401).json({ error: "no estas autorizado" });
+      }
       // Obtener el usuario actual a través del ID almacenado en la sesión
       const userId = decodedToken.id;
       const user = await User.findByPk(userId);
-      
       if (!user) {
-        return res.status(401).json({ error: 'No estás autorizado para hacer publicaciones' });
+        return res
+          .status(401)
+          .json({ error: "No estás autorizado para hacer publicaciones" });
       }
-  
-      const nuevaPublicacion = await Publicacion.create({
-        nombreProducto,
-        Titulo,
-        url : upload,
-        descripcion,
-        UserId: user.id, // Agregar el ID de usuario a la nueva publicación
-      });
-  
-      res.status(201).json(nuevaPublicacion);
+      if (decodedToken.rol == "user" || decodedToken.rol == "admin") {
+        const nuevaPublicacion = await Publicacion.create({
+          nombreProducto,
+          Titulo,
+          url: upload,
+          descripcion,
+          UserId: user.id, // Agregar el ID de usuario a la nueva publicación
+        });
+        return res.status(201).json(nuevaPublicacion);
+      }else {
+        console.error(error.message);
+       return res.status(401).json({ error: 'No estás autorizado para hacer publicaciones' });
+      }  
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ error: 'Ha ocurrido un error' });
