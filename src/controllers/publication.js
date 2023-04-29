@@ -68,7 +68,6 @@ export const eliminarPublicacion = async (req, res) => {
     try {
       const postId = req.params.id;
       const post = await Publicacion.findOne({ where: { id: postId } });
-      console.log(post,"-------------------")
       await post.destroy();
   
       res.status(200).json({ message: 'Publicación eliminada exitosamente' });
