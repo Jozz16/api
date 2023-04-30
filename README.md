@@ -27,6 +27,10 @@ Pasos para la instalación:
 3- Manipulación de archivos:
     -En la carpeta controllers/publication, en la línea 7.
 
+4- si quiere visualizar la base de dato en supabase entrar a https://supabase.com y iniciar secion con estos datos: 
+    correo: Basedato.supabase@gmail.com
+    contraseña: bootcamp-prueba
+
 
 ## Autor ✒️
 
